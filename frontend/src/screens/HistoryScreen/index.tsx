@@ -1,11 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {FlatList, Text, View} from 'react-native';
-import {createAPI} from '../../utils/creatApi';
-import {configureData, EventType} from '../../utils/configureData';
 import {historyScreenStyles} from './styles';
+import {useAppDispatch, useAppSelector} from '../../state';
+import {GET_EVENTS} from '../../state/reducers/history';
 
 export const HistoryScreen = () => {
-  const [data, setData] = useState<null | EventType[]>([]);
+  const data = useAppSelector(state => state.history.events);
+  const dispatch = useAppDispatch();
 
   const renderItem = ({item}) => (
     <View style={historyScreenStyles.renderItemContainer}>
@@ -13,12 +14,10 @@ export const HistoryScreen = () => {
       <Text>{new Date(item.date).toDateString().substring(4)}</Text>
     </View>
   );
-  useEffect(async () => {
-    const res1 = await createAPI().then(res => res.items);
-    const configureRes = configureData(res1);
-    setData(configureRes);
-    return () => setData([]);
-  }, []);
+
+  useEffect(() => {
+    dispatch(GET_EVENTS());
+  }, [dispatch]);
 
   return (
     <View>

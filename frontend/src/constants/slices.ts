@@ -1,0 +1,8 @@
+export enum SLICES {
+  HISTORY = 'HISTORY',
+}
+
+export enum HISTORY {
+  GET_EVENTS = 'GET_EVENTS',
+  SUCCESS_EVENTS = 'SUCCESS_EVENTS',
+}
