@@ -3,6 +3,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {MainNativeStackNavigatorParamList} from '../../navigation/types';
 import {ROUTES} from '../../constants/routes';
+import {homeScreenStyles} from './styles';
 
 export type HomeScreenProps = NativeStackScreenProps<
   MainNativeStackNavigatorParamList,
@@ -17,10 +18,11 @@ export const HomeScreen: FC<HomeScreenProps> = props => {
   };
 
   return (
-    <View>
-      <Text>Home screen</Text>
-      <TouchableOpacity onPress={goToHistoryScreen}>
-        <Text>To history screen</Text>
+    <View style={homeScreenStyles.historyButtonContainer}>
+      <TouchableOpacity
+        style={homeScreenStyles.historyButton}
+        onPress={goToHistoryScreen}>
+        <Text style={homeScreenStyles.buttonText}>History</Text>
       </TouchableOpacity>
     </View>
   );
