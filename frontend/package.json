@@ -3,15 +3,32 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
+    "clean": "find . -name '*.log' -type f -delete && rm -rf node_modules",
+    "clean-lockfile": "rm -rf package-lock.json yarn.lock",
+    "eslint": "eslint .",
+    "eslint-auto-fix-the-whole-project": "eslint . --fix",
+    "install-pods": "cd ios && pod install --repo-update",
+    "pod-repo-update": "cd ios && pod repo update",
+    "prettier-the-whole-project": "prettier --write '**/*.{css,js,json,jsx,markdown,md,scss,ts,tsx}'",
+    "reinstall-pods": "rm -rf ios/build ios/Pods ios/Podfile.lock && yarn install-pods",
+    "reset": "yarn run clean && yarn run setup && yarn run install-pods",
+    "reset-full": "yarn run clean && yarn run clean-lockfile && yarn run setup",
+    "reset-project": "rm -rf android ios && git restore --source=HEAD --staged --worktree -- android && git restore --source=HEAD --staged --worktree -- ios && yarn run reset",
+    "run-android": "npx react-native run-android",
+    "run-ios": "npx react-native run-ios",
+    "setup": "yarn",
+    "start": "rm -fr $TMPDIR/react-* && npx react-native start --reset-cache",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "test-watch": "jest --watch",
+    "test-with-coverage": "jest --coverage"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.0.13",
+    "@react-navigation/native-stack": "^6.9.1",
     "react": "18.1.0",
-    "react-native": "0.70.5"
+    "react-native": "0.70.5",
+    "react-native-safe-area-context": "^4.4.1",
+    "react-native-screens": "^3.18.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
