@@ -8,12 +8,28 @@ export const HistoryScreen = () => {
   const data = useAppSelector(state => state.history.events);
   const dispatch = useAppDispatch();
 
+  // const getResource = (resource: string, id: string) => {
+  //   historyAPI.resources(resource, id);
+  // };
+
   const renderItem = ({item}) => (
     <View style={historyScreenStyles.renderItemContainer}>
-      <Text>{item.name}</Text>
-      <Text>{new Date(item.date).toDateString().substring(4)}</Text>
+      <View style={historyScreenStyles.renderItemHeaderContainer}>
+        <Text>{item.name}</Text>
+        <Text>{new Date(item.date).toDateString().substring(4)}</Text>
+      </View>
+      <Text>{item.id}</Text>
     </View>
   );
+
+  // const viewabilityConfig = {
+  //   waitForInteraction: true,
+  //   viewAreaCoveragePercentThreshold: 0.5,
+  // };
+  //
+  // const handleViewableItemsChanged = useCallback(info => {
+  //   console.log('info', info.viewableItems);
+  // }, []);
 
   useEffect(() => {
     dispatch(GET_EVENTS());
@@ -22,6 +38,9 @@ export const HistoryScreen = () => {
   return (
     <View>
       <FlatList
+        // viewabilityConfig={viewabilityConfig}
+        // onViewableItemsChanged={handleViewableItemsChanged}
+        ListHeaderComponent={<Text>123</Text>}
         data={data}
         renderItem={renderItem}
         keyExtractor={item => item.id}

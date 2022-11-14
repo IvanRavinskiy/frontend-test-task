@@ -23,8 +23,18 @@ const historySlice = createSlice({
       state.isLoading = false;
       state.events = action.payload;
     },
+    [HISTORY.SUCCESS_RESOURCES](state, action) {
+      state.isLoading = false;
+      console.log('action.payload', action.payload);
+      let curEvent = state.events.filter(el => {
+        console.log(el);
+        return action.payload[0].includes(el.id);
+      });
+      console.log(curEvent);
+    },
   },
 });
 
 export const {actions, reducer: historyReducer} = historySlice;
-export const {GET_EVENTS, SUCCESS_EVENTS} = historySlice.actions;
+export const {GET_EVENTS, SUCCESS_EVENTS, SUCCESS_RESOURCES} =
+  historySlice.actions;
